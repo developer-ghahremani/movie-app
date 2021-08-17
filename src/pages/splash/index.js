@@ -1,15 +1,14 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { IText } from "./src/component/general";
 
-const App = () => {
+const Splash = () => {
   return (
     <View>
-      <IText></IText>
+      <Text></Text>
     </View>
   );
 };
 
-export default App;
+export default Splash;
 
 const styles = StyleSheet.create({});
