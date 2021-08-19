@@ -43,6 +43,7 @@ const Login = () => {
           shouldPlay
           resizeMode="cover"
           isLooping
+          isMuted
           style={styles.videoBackground}
         />
         <View style={styles.fakeShadow} />

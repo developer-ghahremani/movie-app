@@ -4,7 +4,7 @@ import { localStorageKeys, pageName } from "../../../constant";
 import Container from "../../component/general/Container";
 import IText from "../../component/general/IText";
 import Row from "../../component/general/Row";
-import Logout from "../../component/icons/logout";
+import Logout from "../../component/icons/Logout";
 import MainLayout from "../../layout/main";
 import colors from "../../style/colors";
 import { removeFromLocalStorage } from "../../utils/localStorage";
