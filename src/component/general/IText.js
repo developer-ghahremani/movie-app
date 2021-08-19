@@ -1,9 +1,28 @@
 import React from "react";
 import { StyleSheet, Text, View, TextPropTypes } from "react-native";
 import PropTypes from "prop-types";
+import colors from "../../style/colors";
 
-const IText = ({ pY = 5, children }) => {
-  return <Text>{children}</Text>;
+const IText = ({
+  children,
+  style,
+  bold,
+  color = colors.secondaryColor,
+  size,
+  ...prp
+}) => {
+  return (
+    <Text
+      style={{
+        fontFamily: bold ? "workSansBold" : "workSansMedium",
+        color,
+        fontSize: size,
+        ...style,
+      }}
+      {...prp}>
+      {children}
+    </Text>
+  );
 };
 
 export default IText;
