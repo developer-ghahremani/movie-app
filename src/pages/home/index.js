@@ -1,41 +1,56 @@
-import React from "react";
-import { BackHandler, StyleSheet, Text, View } from "react-native";
-import { localStorageKeys, pageName } from "../../../constant";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import Container from "../../component/general/Container";
-import IText from "../../component/general/IText";
-import Row from "../../component/general/Row";
-import Logout from "../../component/icons/Logout";
 import MainLayout from "../../layout/main";
 import colors from "../../style/colors";
-import { removeFromLocalStorage } from "../../utils/localStorage";
+import { HomeContext } from "./context";
+import HomeHeader from "./Header";
+import Movies from "./Movies";
+import { getMovies } from "./../../api/movie";
 
-const Home = ({ navigation: { replace } }) => {
-  const handleLogout = async () => {
+const Home = () => {
+  const [state, setState] = useState({
+    movies: [],
+    selectedMovie: {},
+    page: 1,
+    rows: 10,
+  });
+
+  useEffect(() => {
+    console.log("get shudema");
+    loadMovies();
+  }, [state.page]);
+
+  const loadMovies = async () => {
     try {
-      removeFromLocalStorage(localStorageKeys.token);
-      replace(pageName.auth.login);
+      const { data } = await getMovies(state.page, state.rows);
+      setState((s) => ({
+        ...s,
+        movies: data.data.movies,
+        selectedMovie: data.data.movies[0],
+      }));
     } catch (error) {
       console.log(error.message);
     }
   };
 
   return (
-    <MainLayout>
-      <Container
-        style={{
-          backgroundColor: colors.secondaryColor,
-          flex: 1,
-          padding: 10,
-        }}>
-        <Row justify="space-between" align="center">
-          <IText color={colors.grayLight}>MovieApp</IText>
-          <Logout color={colors.grayLight} size={25} onPress={handleLogout} />
-        </Row>
-      </Container>
-    </MainLayout>
+    <HomeContext.Provider value={{ state, setState }}>
+      <MainLayout>
+        <Container style={styles.container}>
+          <HomeHeader />
+          <Movies />
+        </Container>
+      </MainLayout>
+    </HomeContext.Provider>
   );
 };
 
 export default Home;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.secondaryColor,
+    flex: 1,
+  },
+});

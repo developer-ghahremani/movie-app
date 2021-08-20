@@ -7,6 +7,9 @@ export const endPoints = {
   auth: {
     login: "/login/",
   },
+  movie: {
+    main: "/movies/",
+  },
 };
 export const domain = "https://www.digikala.com";
 
