@@ -2,6 +2,11 @@ export const pageName = {
   splash: "/splash",
   auth: { login: "/auth/login" },
   home: { index: "/home" },
+  movie: {
+    details: {
+      index: "/movieDetail/inedx",
+    },
+  },
 };
 
 export const endPoints = {

@@ -1,18 +1,25 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useContext } from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import Carousel from "react-native-snap-carousel";
+import { pageName } from "../../../constant";
 import IImage from "../../component/general/IImage";
 import MovieItem from "../../component/items/Movie";
 import { HomeContext } from "./context";
 
 const Movies = () => {
   const { state, setState } = useContext(HomeContext);
+  const { navigate } = useNavigation();
   const onChangeSlider = (index) => {
     setState((s) => ({
       ...s,
       selectedMovie: s.movies[index],
       page: index === s.movies.length - 1 ? s.page + 1 : s.page,
     }));
+  };
+
+  const handleMovieDetail = (movie) => {
+    navigate(pageName.movie.details.index, { movie });
   };
 
   return (
@@ -28,8 +35,9 @@ const Movies = () => {
         slideStyle={{ alignSelf: "flex-end" }}
         sliderHeight={Dimensions.get("window").height}
         data={state.movies}
-        onEnd
-        renderItem={({ item }) => <MovieItem movie={item} />}
+        renderItem={({ item }) => (
+          <MovieItem onPress={handleMovieDetail} movie={item} />
+        )}
         onSnapToItem={onChangeSlider}
       />
     </View>

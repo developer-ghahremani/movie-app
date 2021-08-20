@@ -1,6 +1,7 @@
 import axios from "axios";
 import { domain, localStorageKeys } from "../../constant";
 import { getLocalStorage } from "../utils/localStorage";
+import { showMessage } from "../utils/toast";
 
 const api = axios.create({ baseURL: `${domain}/front-end` });
 
@@ -20,12 +21,12 @@ api.interceptors.request.use(async (config) => {
   }
 });
 
-api.interceptors.response.use(
-  (response) => Promise.resolve(response),
-  (error) => {
-    // console.log(error.response.data, "inter");
-    return Promise.reject(error);
+api.interceptors.response.use((response) => {
+  if (response.data.status !== 200) {
+    showMessage(response.data.message, "error");
+    return Promise.reject(Error(response.data.message));
   }
-);
+  return Promise.resolve(response);
+});
 
 export default api;

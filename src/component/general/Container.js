@@ -2,8 +2,14 @@ import PropTypes from "prop-types";
 import React from "react";
 import { StyleSheet, Text, View, ViewPropTypes } from "react-native";
 
-const Container = ({ children, ...prp }) => {
-  return <View {...prp}>{children}</View>;
+const Container = ({ children, pX, pY, style, ...prp }) => {
+  return (
+    <View
+      style={{ paddingHorizontal: pX, paddingVertical: pY, ...style }}
+      {...prp}>
+      {children}
+    </View>
+  );
 };
 
 Container.propTypes = {

@@ -5,6 +5,7 @@ const IFlatlist = ({ ...prp }) => {
   return (
     <FlatList
       showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
       keyExtractor={(item, index) => `${index}`}
       {...prp}
     />

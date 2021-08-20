@@ -9,6 +9,7 @@ import { removeFromLocalStorage } from "../../utils/localStorage";
 import { useNavigation } from "@react-navigation/native";
 import FilterIcon from "../../component/icons/Filter";
 import { HomeContext } from "./context";
+import ITouchable from "../../component/general/ITouchable";
 
 const HomeHeader = () => {
   const { toggleFilterModal, state } = useContext(HomeContext);
@@ -31,19 +32,20 @@ const HomeHeader = () => {
     <Row pX={10} pY={10} justify="space-between" align="center">
       <IText color={colors.grayLight}>MovieApp</IText>
       <Row align="center">
-        <View style={styles.badgeContainer}>
-          <FilterIcon
-            size={20}
-            color={colors.grayLight}
-            onPress={toggleFilterModal}
-            style={styles.filterIcon}
-          />
-          {counter > 0 && (
-            <View style={styles.badge}>
-              <IText color={"white"}>{counter}</IText>
-            </View>
-          )}
-        </View>
+        <ITouchable onPress={toggleFilterModal}>
+          <View style={styles.badgeContainer}>
+            <FilterIcon
+              size={20}
+              color={colors.grayLight}
+              style={styles.filterIcon}
+            />
+            {counter > 0 && (
+              <View style={styles.badge}>
+                <IText color={"white"}>{counter}</IText>
+              </View>
+            )}
+          </View>
+        </ITouchable>
 
         <Logout color={colors.grayLight} size={20} onPress={handleLogout} />
       </Row>

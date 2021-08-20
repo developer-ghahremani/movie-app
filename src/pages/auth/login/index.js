@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import MainLayout from "../../../layout/main";
 import { Video } from "expo-av";
@@ -14,8 +14,10 @@ import { localStorageKeys, pageName } from "../../../../constant";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { setToken } from "../../../redux/action/token";
+import { showMessage } from "../../../utils/toast";
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const { replace } = useNavigation();
   const dispatch = useDispatch();
 
@@ -29,13 +31,17 @@ const Login = () => {
   });
 
   const handleLogin = async (params) => {
+    setLoading(true);
     try {
       const { data } = await loginUser(params);
+      console.log("man kaar kardam ke");
       await saveToLocalStorage(localStorageKeys.token, data.data.token);
       dispatch(setToken(data.data.token));
       replace(pageName.home.index);
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -76,6 +82,7 @@ const Login = () => {
                 <AuthInput
                   placeholder="password"
                   mT={15}
+                  secureTextEntry
                   lable="Password"
                   value={values.password}
                   error={errors.password}
@@ -83,7 +90,9 @@ const Login = () => {
                   touched={touched.password}
                 />
               </Container>
-              <IButton onPress={handleSubmit}>Login</IButton>
+              <IButton loading={loading} onPress={handleSubmit}>
+                Login
+              </IButton>
             </Container>
           )}
         </Formik>

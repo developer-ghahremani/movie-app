@@ -19,7 +19,7 @@ export const getMovies = (
 ) => {
   const params = { page, rows, title };
   genres.forEach((item, index) => {
-    params[`genre[${index}]`] = item.name;
+    params[`genre[${index}]`] = item.name || item;
   });
 
   languages.forEach((item, index) => {

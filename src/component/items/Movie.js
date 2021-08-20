@@ -5,11 +5,12 @@ import colors from "../../style/colors";
 import Container from "../general/Container";
 import IImage from "../general/IImage";
 import IText from "../general/IText";
+import ITouchable from "../general/ITouchable";
 import Row from "../general/Row";
 import Star from "../icons/Star";
 import RatingBar from "../RatingBar";
 
-const MovieItem = ({ movie }) => {
+const MovieItem = ({ movie, onPress }) => {
   const {
     title,
     year,
@@ -39,14 +40,20 @@ const MovieItem = ({ movie }) => {
     id,
   } = movie;
 
+  const handleMoviewDetail = () => {
+    onPress(movie);
+  };
+
   return (
     <Container style={styles.container}>
       <Container style={styles.descriptionContainer}>
-        <IImage
-          resizeMode="center"
-          style={styles.coverImage}
-          source={{ uri: poster.replace(" =>", ":") }}
-        />
+        <ITouchable style={styles.coverImage} onPress={handleMoviewDetail}>
+          <IImage
+            resizeMode="center"
+            style={styles.coverImage}
+            source={{ uri: poster.replace(" =>", ":") }}
+          />
+        </ITouchable>
         <Container style={{ alignItems: "center" }}>
           <IText bold style={{ textAlign: "center" }}>
             {title}
