@@ -18,7 +18,7 @@ const Movies = () => {
   return (
     <View style={styles.container}>
       <IImage
-        source={{ uri: state.selectedMovie.poster?.replace(" =>", ":") }}
+        source={{ uri: state.selectedMovie?.poster?.replace(" =>", ":") }}
         style={styles.poster}
         resizeMode="cover"
       />

@@ -12,9 +12,12 @@ import { loginUser } from "./../../../api/auth";
 import { saveToLocalStorage } from "../../../utils/localStorage";
 import { localStorageKeys, pageName } from "../../../../constant";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { setToken } from "../../../redux/action/token";
 
 const Login = () => {
   const { replace } = useNavigation();
+  const dispatch = useDispatch();
 
   const validationSchema = Yup.object({
     username: Yup.string()
@@ -29,6 +32,7 @@ const Login = () => {
     try {
       const { data } = await loginUser(params);
       await saveToLocalStorage(localStorageKeys.token, data.data.token);
+      dispatch(setToken(data.data.token));
       replace(pageName.home.index);
     } catch (error) {
       console.log(error.message);

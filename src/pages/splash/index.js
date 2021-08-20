@@ -6,17 +6,23 @@ import MainLayout from "../../layout/main";
 import { useNavigation } from "@react-navigation/native";
 import { localStorageKeys, pageName } from "../../../constant";
 import { getLocalStorage } from "../../utils/localStorage";
+import { useDispatch } from "react-redux";
+import { setToken } from "./../../redux/action/token";
 
 const Splash = () => {
   const { replace } = useNavigation();
+  const dispatch = useDispatch();
   useEffect(() => {
     checkUserExistence();
   }, []);
 
-  const checkUserExistence = async (params) => {
+  const checkUserExistence = async () => {
     try {
       const token = await getLocalStorage(localStorageKeys.token);
-      if (token) return replace(pageName.home.index);
+      if (token) {
+        dispatch(setToken(token));
+        return replace(pageName.home.index);
+      }
       replace(pageName.auth.login);
     } catch (error) {
       console.log(error.message);

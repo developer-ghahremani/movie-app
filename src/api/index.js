@@ -13,7 +13,9 @@ api.interceptors.request.use(async (config) => {
     console.log(error.message);
   } finally {
     config.headers = header;
-
+    console.log(
+      `${config.method}, ${config.url}, ${JSON.stringify(config.params)}`
+    );
     return config;
   }
 });
