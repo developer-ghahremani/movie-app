@@ -1,6 +1,7 @@
-import React from "react";
-import { StyleSheet, Text, View, TextPropTypes } from "react-native";
+import { StyleSheet, Text, TextPropTypes, View } from "react-native";
+
 import PropTypes from "prop-types";
+import React from "react";
 import colors from "../../style/colors";
 
 const IText = ({
@@ -26,10 +27,5 @@ const IText = ({
 };
 
 export default IText;
-
-IText.propTypes = {
-  ...TextPropTypes,
-  type: PropTypes.oneOf(["salam", "by"]),
-};
 
 const styles = StyleSheet.create({});

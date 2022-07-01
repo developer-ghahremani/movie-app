@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+
 import { getGenre } from "./../../api/genre";
 import { setGenres } from "./../../redux/action/genres";
 
 const DataProvider = ({ children }) => {
   const { token } = useSelector((state) => state);
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (token) loadGenre();
   }, [token]);
@@ -24,5 +26,3 @@ const DataProvider = ({ children }) => {
 };
 
 export default DataProvider;
-
-const styles = StyleSheet.create({});
